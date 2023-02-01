@@ -4,24 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import javax.persistence.*;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
 @Entity
-public class Ingredient {
+public class RecipeInstruction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true, nullable = false)
+    @Column( nullable = false)
+    private String instructions;
 
-    private String ingredientName;
-
-
-    public Ingredient(String ingredientName) {
-        this.ingredientName = ingredientName;
-
-    }
 }
