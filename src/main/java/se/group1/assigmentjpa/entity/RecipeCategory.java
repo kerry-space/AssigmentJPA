@@ -1,8 +1,15 @@
 package se.group1.assigmentjpa.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 
 
 @Entity
