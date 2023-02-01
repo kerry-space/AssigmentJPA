@@ -6,9 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import se.group1.assigmentjpa.entity.Recipe;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
 
 @Repository
 public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
@@ -21,5 +19,6 @@ public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
 
     @Query("select a from Recipe a where a.recipeName = :recipeName")
     Set<Recipe> findAllByCategoriesIgnoreCase(@Param("recipeName") String recipeName);
+
 }
 
