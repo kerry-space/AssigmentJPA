@@ -1,4 +1,4 @@
-package se.group1.assigmentjpa.Repository;
+package se.group1.assigmentjpa.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
