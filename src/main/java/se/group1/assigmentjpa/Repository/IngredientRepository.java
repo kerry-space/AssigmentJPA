@@ -1,4 +1,4 @@
-package se.group1.assigmentjpa.repository;
+package se.group1.assigmentjpa.Repository;
 
 import org.springframework.data.repository.CrudRepository;
 import se.group1.assigmentjpa.entity.Ingredient;
