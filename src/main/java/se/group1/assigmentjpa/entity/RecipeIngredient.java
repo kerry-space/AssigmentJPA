@@ -26,5 +26,10 @@ public class RecipeIngredient {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Recipe recipe;
 
+    public RecipeIngredient(Ingredient ingredient, Double amount, Measurement measurement) {
+        this.ingredient = ingredient;
+        this.amount = amount;
+        this.measurement = measurement;
 
+    }
 }

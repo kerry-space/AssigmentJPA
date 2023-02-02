@@ -18,4 +18,7 @@ public class RecipeInstruction {
     @Column( nullable = false)
     private String instructions;
 
+    public RecipeInstruction(String instructions) {
+        this.instructions = instructions;
+    }
 }
