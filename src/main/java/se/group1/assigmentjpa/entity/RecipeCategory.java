@@ -30,9 +30,8 @@ public class RecipeCategory {
     private Set<Recipe>recipes = new HashSet<>();
 
 
-    public RecipeCategory(String category, Set<Recipe> recipes) {
+    public RecipeCategory(String category) {
         this.category = category;
-        this.recipes = recipes;
     }
 
 
