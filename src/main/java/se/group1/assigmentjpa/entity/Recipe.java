@@ -23,21 +23,25 @@ public class Recipe {
     private int id;
     @Column( nullable = false)
     private String recipeName;
+
     @OneToMany(
             mappedBy = "id",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
     )
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipeInstruction_id")
+    @JoinColumn(name = "instruction_id")
     private RecipeInstruction instruction;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "recipeCategory_recipe",
+    @JoinTable(name = "recipe_RecipeCategory",
             joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "recipeCatagory_id")
+            inverseJoinColumns = @JoinColumn(name = "RecipeCategory_id")
     )
-private Set<RecipeCategory>categories = new HashSet<>();
+    private Set<RecipeCategory>categories = new HashSet<>();
+
 
     public Recipe( String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories ) {
         this.recipeName = recipeName;
@@ -60,6 +64,7 @@ private Set<RecipeCategory>categories = new HashSet<>();
         recipeIngredients.remove(recipeIngredient);
     }
 
+    //helper methods
     public void addRecipeCategory(RecipeCategory recipeCategory){
         if(categories.contains(recipeCategory)){
             throw new DataDuplicateException("Data duplicate exceptions");
