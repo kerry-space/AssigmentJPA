@@ -25,7 +25,7 @@ public class Recipe {
     private String recipeName;
 
     @OneToMany(
-            mappedBy = "id",
+            mappedBy = "recipe",//must be mappedBy dame entity on RecipeIngredient recipe
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
     )
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
@@ -50,6 +50,9 @@ public class Recipe {
         this.categories = categories;
     }
 
+
+
+    //helper methods
     public void addRecipeIngredient(RecipeIngredient recipeIngredient){
         if(recipeIngredients.contains(recipeIngredient)){
             throw new DataDuplicateException("Data duplicate exception");
@@ -64,7 +67,7 @@ public class Recipe {
         recipeIngredients.remove(recipeIngredient);
     }
 
-    //helper methods
+
     public void addRecipeCategory(RecipeCategory recipeCategory){
         if(categories.contains(recipeCategory)){
             throw new DataDuplicateException("Data duplicate exceptions");

@@ -17,4 +17,5 @@ public interface RecipeRepository extends CrudRepository<Recipe, Integer>
     @Query("select r from Recipe r where r.categories = :recipeCategory")
     Set<Recipe> findAllByCategoriesIsContainingIgnoreCase(@Param("recipeCategory") String recipeName );
     @Query("select r from Recipe r where r.recipeName = :recipeName")
-    Set<Recipe> findAllByCategoriesIgnoreCase(@Param("recipeName") String recipeName);}
+    Set<Recipe> findAllByCategoriesIgnoreCase(@Param("recipeName") String recipeName);
+}
