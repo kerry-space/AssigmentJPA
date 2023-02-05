@@ -5,56 +5,75 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import se.group1.assigmentjpa.entity.*;
+import se.group1.assigmentjpa.entity.Ingredient;
 
-import java.util.*;
+import java.util.Optional;
 
 @DataJpaTest
 public class IngredientRepositoryTest {
 
+    // allow us to inject beans using @Autowired.
     @Autowired
-    RecipeRepository testObject;
+    IngredientRepository testObject;
 
-    Recipe createdRecipe;
+    Ingredient createdIngredient;
 
     @BeforeEach
-    public void setup() {
-        Ingredient ingredient1 = new Ingredient("Baking powder");
-        Ingredient ingredient2 = new Ingredient("eggs");
-
-        RecipeIngredient recipeIngredient1 = new RecipeIngredient(ingredient1, 100.0, Measurement.KG);
-        RecipeIngredient recipeIngredient2 = new RecipeIngredient(ingredient2, 100.0, Measurement.KG);
-
-        List<RecipeIngredient> recipeIngredientList = new ArrayList<>();
-        recipeIngredientList.add(recipeIngredient1);
-        recipeIngredientList.add(recipeIngredient2);
-
-        RecipeInstruction recipeInstruction = new RecipeInstruction("putting eggs and baking powder togheter and stir it.");
-
-
-        RecipeCategory recipeCategory1 = new RecipeCategory("one pancake for morning, one pancake for afternoon");
-        RecipeCategory recipeCategory2 = new RecipeCategory("one pancake for morning, one pancake for afternoon");
-
-        Set<RecipeCategory> recipeCategorySet = new HashSet<>();
-        recipeCategorySet.add(recipeCategory1);
-        recipeCategorySet.add(recipeCategory2);
-
-
-        createdRecipe = new Recipe("Pancake", recipeIngredientList, recipeInstruction,recipeCategorySet );
-        assertNotNull(createdRecipe);
+    public void setup(){
+         Ingredient ingredient = new Ingredient("test");
+         createdIngredient = testObject.save(ingredient);
+         assertNotNull(createdIngredient);
     }
 
+    //CRUD TEST methods
 
+    //Create(C)
     @Test
-    public void  test_findById(){
-       Optional<Recipe>  optionalRecipe = testObject.findById(createdRecipe.getId());
-        assertTrue(optionalRecipe.isPresent());
-        Recipe actual = optionalRecipe.get();
-        Recipe expected = createdRecipe;
+    public void test_created(){
+        Ingredient ingredient = new Ingredient("choload");
+        Ingredient actual =  testObject.save(ingredient);
+        Ingredient expected = ingredient;
+
+        assertEquals(expected, actual);
+    }
+
+    //Read(R)
+    @Test
+    public void test_findById(){
+      Optional<Ingredient> optionalIngredient = testObject.findById(createdIngredient.getId());
+      assertTrue(optionalIngredient.isPresent());
+      Ingredient actual = optionalIngredient.get();
+      Ingredient expected = createdIngredient;
+      assertEquals(expected,actual);
+
+    }
+
+    //update(U)
+    @Test
+    public void test_update(){
+        String newIngredientName = "flower";
+        int result = testObject.updateIngredientName(createdIngredient.getId(), newIngredientName);
+        assertEquals(1,result);
+
+       Optional<Ingredient> optionalIngredient   = testObject.findById(createdIngredient.getId());
+       assertTrue(optionalIngredient.isPresent());
+       Ingredient updatedIngredient = optionalIngredient.get();
+
+       assertEquals(newIngredientName, updatedIngredient.getIngredientName());
+    }
+
+    //Delete(D)
+    @Test
+    public void test_delete(){
+        testObject.delete(createdIngredient);
+        long actual = 0;
+        long expected = testObject.count();
 
         assertEquals(expected, actual);
 
+
     }
+
 
 
 }

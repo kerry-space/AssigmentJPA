@@ -14,9 +14,10 @@ import javax.persistence.*;
 public class RecipeIngredient {
 
     @Id
+    //ypu only use for String type
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private int id;
+    private String id;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Ingredient ingredient;
 
