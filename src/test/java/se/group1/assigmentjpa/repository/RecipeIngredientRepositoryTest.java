@@ -60,9 +60,18 @@ public class RecipeIngredientRepositoryTest {
     //update(U)
     @Test
     public void test_update(){
-        int result = testObject.update_ingredient(createdRecipeIngredient.getId(), new Ingredient("test"));
-        assertEquals(true, result);
+       
+        RecipeIngredient expected = createdRecipeIngredient;
 
+       Optional<RecipeIngredient> optionalRecipeIngredient = testObject.findById(createdRecipeIngredient.getId());
+        assertTrue(optionalRecipeIngredient.isPresent());
+
+        Ingredient ingredient = new Ingredient("flower");
+        optionalRecipeIngredient.get().setIngredient(ingredient);
+
+        RecipeIngredient actual = testObject.save(optionalRecipeIngredient.get());
+
+        assertEquals(expected, actual);
     }
 
     //Delete(D)
