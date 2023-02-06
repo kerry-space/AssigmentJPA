@@ -31,6 +31,10 @@ public class RecipeIngredient {
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
+    }
 
+    public RecipeIngredient(String id, Ingredient ingredient) {
+        this.id = id;
+        this.ingredient = ingredient;
     }
 }

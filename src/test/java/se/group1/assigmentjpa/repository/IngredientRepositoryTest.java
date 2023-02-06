@@ -51,15 +51,21 @@ public class IngredientRepositoryTest {
     //update(U)
     @Test
     public void test_update(){
-        String newIngredientName = "flower";
-        int result = testObject.updateIngredientName(createdIngredient.getId(), newIngredientName);
-        assertEquals(1,result);
+        //step1: expected result
+       Ingredient expected = new Ingredient(createdIngredient.getId(), "Flower");
 
-       Optional<Ingredient> optionalIngredient   = testObject.findById(createdIngredient.getId());
+       //step2: findById(createdIngredient)
+       Optional<Ingredient> optionalIngredient = testObject.findById(createdIngredient.getId());
        assertTrue(optionalIngredient.isPresent());
-       Ingredient updatedIngredient = optionalIngredient.get();
 
-       assertEquals(newIngredientName, updatedIngredient.getIngredientName());
+       //finds, gets the Ingredient
+       optionalIngredient.get().setIngredientName("Flower");
+
+       //set the Ingredient
+       Ingredient actual = testObject.save(optionalIngredient.get());
+
+       //step3: compare them
+       assertEquals(expected, actual);
     }
 
     //Delete(D)
